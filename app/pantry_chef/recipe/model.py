@@ -6,7 +6,7 @@ import sqlalchemy as sa
 from sqlalchemy import func, String, Text, JSON
 from sqlalchemy.orm import mapped_column, Mapped
 
-from app.pantry_chef.base_model import Base, BaseStatus
+from pantry_chef.base_model import Base, BaseStatus
 
 
 class Recipe(Base, BaseStatus):
