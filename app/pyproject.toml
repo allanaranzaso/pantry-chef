@@ -6,15 +6,20 @@ authors = ["Allan Aranzaso"]
 package-mode = false
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = "^3.12.3"
 fastapi = "^0.115.0"
 uvicorn = "^0.30.6"
-ruff = "^0.6.8"
 pydantic = "^2.9.2"
-databases = {extras = ["postgresql"], version = "^0.9.0"}
+databases = { extras = ["postgresql"], version = "^0.9.0" }
 sqlalchemy = "^2.0.35"
-asyncpg = "^0.29.0"
 pydantic-settings = "^2.5.2"
+httpx = "^0.23.0"
+
+[tool.poetry.group.ci.dependencies]
+asyncpg = "^0.29.0"
+ruff = "^0.6.8"
+alembic = "^1.13.3"
+pytest = "^8.3.3"
 
 [tool.ruff]
 exclude = ["alembic"]
@@ -70,7 +75,7 @@ extend-select = [
     "ERA", # commented out code
     "UP", # pyupgrade
     "W", # pycodestyle warnings
-    ]
+]
 ignore = [
     "ANN101", # deprecated annotation rule
     "ANN102", # deprecated annotation rule
@@ -80,7 +85,7 @@ ignore = [
     "ISC001", # formatter conflict
     "RUF012", # lots of false positives for pydantic
     "B008"
-    ]
+]
 fixable = ["ALL"]
 unfixable = []
 
@@ -94,7 +99,7 @@ unfixable = []
     "PLR0913", # pytest fixture as arguments
     "FBT001", # boolean fixtures
     "S105", # hardcoded password
-    ]
+]
 
 [tool.ruff.lint.isort]
 known-first-party = ["app", "pantry_chef"]

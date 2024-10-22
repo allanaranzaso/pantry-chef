@@ -3,7 +3,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    APP_NAME: str = 'pantry-chef'
+    APP_NAME: str = 'pantry-chef-backend'
     DB_USERNAME: str = ''
     DB_PASSWORD: str = ''
     DB_URL: str = ''
@@ -17,9 +17,9 @@ class Settings(BaseSettings):
     @field_validator('DATABASE_URL')
     @classmethod
     def format_database_url(
-        cls,
-        _v: str,
-        info: ValidationInfo,
+            cls,
+            _v: str,
+            info: ValidationInfo,
     ) -> str:
         values = info.data
         return (
