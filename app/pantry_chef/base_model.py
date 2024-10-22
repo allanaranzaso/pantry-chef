@@ -34,7 +34,7 @@ StructureStatus = ['draft', 'published', 'archived']
 
 class BaseStatus:
     status: Mapped[StructureStatus] = mapped_column(
-        String(20),
+        String(10),
         default='draft',
         server_default='draft',
     )

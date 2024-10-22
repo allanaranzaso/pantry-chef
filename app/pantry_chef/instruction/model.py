@@ -2,11 +2,10 @@ from typing import List
 from uuid import UUID, uuid4
 
 from sqlalchemy.dialects.postgresql import UUID as SA_UUID
-from sqlalchemy import func, ForeignKey, Integer, String, Text, Column, Table, Index
+from sqlalchemy import func, ForeignKey, Float, String, Text, Column, Table, Index
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from pantry_chef.base_model import Base, BaseStatus, BaseTelemetry
-from pantry_chef.recipe.model import Recipe
 
 recipe_instruction_association = Table(
     'recipe_instruction_association',
@@ -40,7 +39,7 @@ class Instruction(Base, BaseStatus, BaseTelemetry):
         default=uuid4,
         server_default=func.gen_random_uuid(),
     )
-    recipes: Mapped[List[Recipe]] = relationship(
+    recipes: Mapped[List['Recipe']] = relationship(
         'Recipe',
         secondary=recipe_instruction_association,
         lazy='joined',
@@ -55,4 +54,4 @@ class Instruction(Base, BaseStatus, BaseTelemetry):
         server_default='There is no description available.',
         nullable=False
     )
-    duration_ms: Mapped[int] = mapped_column(Integer, nullable=False)
+    duration_ms: Mapped[int] = mapped_column(Float, nullable=False)
