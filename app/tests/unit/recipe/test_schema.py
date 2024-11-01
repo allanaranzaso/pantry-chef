@@ -19,9 +19,7 @@ def test_recipe_valid_schema(recipe_schema: RecipeSchema) -> None:
     ],
 )
 def test_recipe_invalid_schema_raises_value_error(
-        field: str,
-        invalid_value: str,
-        recipe_schema: RecipeSchema
+    field: str, invalid_value: str, recipe_schema: RecipeSchema
 ) -> None:
     invalid_recipe_schema = recipe_schema.model_dump()
     invalid_recipe_schema[field] = invalid_value

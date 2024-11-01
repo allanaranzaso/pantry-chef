@@ -1,6 +1,6 @@
 import datetime
 import uuid
-from typing import Any
+from typing import Any, Literal
 
 import sqlalchemy as sa
 from sqlalchemy import JSON, TIMESTAMP, String
@@ -29,7 +29,7 @@ class BaseTelemetry:
     last_modify_by: Mapped[uuid.UUID] = mapped_column(nullable=False)
 
 
-StructureStatus = ['draft', 'published', 'archived']
+StructureStatus = Literal['draft', 'published', 'archived']
 
 
 class BaseStatus:

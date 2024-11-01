@@ -1,9 +1,8 @@
-from typing import List
 from uuid import UUID, uuid4
 
+from sqlalchemy import Column, Float, ForeignKey, Index, String, Table, func
 from sqlalchemy.dialects.postgresql import UUID as SA_UUID
-from sqlalchemy import func, String, ForeignKey, Float, Table, Index, Column
-from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy.orm import Mapped, mapped_column
 
 from pantry_chef.base_model import Base, BaseStatus, BaseTelemetry
 
@@ -42,8 +41,3 @@ class Ingredient(Base, BaseStatus, BaseTelemetry):
     name: Mapped[str] = mapped_column(String, nullable=False)
     quantity: Mapped[float] = mapped_column(Float, nullable=False)
     uom: Mapped[str] = mapped_column(String, nullable=False)
-    recipes: Mapped[List['Recipe']] = relationship(
-        'Recipe',
-        secondary=recipe_ingredient_association,
-        lazy='joined',
-    )

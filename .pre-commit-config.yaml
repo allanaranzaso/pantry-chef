@@ -1,0 +1,19 @@
+repos:
+  - repo: local
+    hooks:
+      - id: lint
+        name: lint
+        entry: bash -c 'cd app && poetry run ruff check . --fix && poetry run ruff format . && poetry run pyright' # Use the appropriate command to run your tests
+        language: system
+        pass_filenames: false
+        always_run: true
+  - repo: local
+    hooks:
+      - id: pytest
+        name: pytest
+        stages: [ pre-push ]
+        entry: bash -c 'cd app && poetry run pytest' # Use the appropriate command to run your tests
+        language: system
+        pass_filenames: false
+        always_run: true
+        files: ^app/

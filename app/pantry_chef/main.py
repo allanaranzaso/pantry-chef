@@ -18,7 +18,7 @@ router = APIRouter(prefix='/api/v1')
 
 
 @app.get('/')
-async def root() -> dict:
+async def root() -> dict[str, str]:
     return {'Hello': 'World'}
 
 
