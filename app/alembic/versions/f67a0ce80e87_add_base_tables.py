@@ -1,7 +1,7 @@
 """Add base tables
 
 Revision ID: f67a0ce80e87
-Revises: 
+Revises:
 Create Date: 2024-10-21 21:27:06.713849
 
 """

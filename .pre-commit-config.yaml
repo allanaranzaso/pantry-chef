@@ -1,4 +1,4 @@
-default_stages: [ pre-commit ]
+default_stages: [ pre-commit, pre-push ]
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.4.0
@@ -19,7 +19,7 @@ repos:
     hooks:
       - id: unit-test
         name: unit-test
-        stages: [ push ]
+        stages: [ pre-push ]
         entry: bash -c 'cd app && poetry run pytest tests/unit'
         language: system
         pass_filenames: false
