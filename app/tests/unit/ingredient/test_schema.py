@@ -24,9 +24,7 @@ def test_ingredient_valid_schema(ingredient_schema: IngredientSchema) -> None:
     ],
 )
 def test_ingredient_invalid_schema(
-        field: str,
-        invalid_value: str,
-        ingredient_schema: IngredientSchema
+    field: str, invalid_value: str, ingredient_schema: IngredientSchema
 ) -> None:
     invalid_ingredient_schema = ingredient_schema.model_dump()
     invalid_ingredient_schema[field] = invalid_value
@@ -40,7 +38,7 @@ def test_ingredient_invalid_schema(
     ('value', 'expected'),
     [
         ('Chicken', 'Chicken'),
-    ]
+    ],
 )
 def test_ingredient_schema_default_value(value: str, expected: str) -> None:
     ingredient_schema = IngredientSchema(name=value)

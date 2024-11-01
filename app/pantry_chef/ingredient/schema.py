@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import Annotated, List
+from typing import Annotated
 from uuid import UUID, uuid4
 
 from annotated_types import Predicate
@@ -31,15 +31,17 @@ class IngredientSchema(BaseSchema, BaseStatusSchema, BaseTelemetrySchema):
     name: Annotated[str, Predicate(is_not_empty_string)]
     quantity: float = 0
     uom: UOMEnum = UOMEnum.EACH
-    recipes: List[UUID] = []
+    recipes: list[UUID] = []
 
     @field_validator('quantity')
+    @classmethod
     def validate_quantity(cls, value: float) -> float:
         if value <= 0:
             raise ValueError('Quantity must be a positive number')
         return value
 
     @field_validator('uom')
+    @classmethod
     def validate_uom(cls, value: str) -> str:
         if not value:
             raise ValueError('Unit of measure must not be empty')
@@ -49,14 +51,6 @@ class IngredientSchema(BaseSchema, BaseStatusSchema, BaseTelemetrySchema):
 
         return value
 
-    @field_validator('recipes')
-    def validate_recipes(cls, value: List[UUID]) -> List[UUID]:
-        for uuid in value:
-            if not isinstance(uuid, UUID):
-                raise ValueError('Invalid recipe UUID')
-
-        return value
-
     @field_serializer('recipes')
-    def serialize_recipes(self, value: List[UUID]) -> List[str]:
+    def serialize_recipes(self, value: list[UUID]) -> list[str]:
         return [str(uuid) for uuid in value]

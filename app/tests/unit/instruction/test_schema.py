@@ -22,9 +22,7 @@ def test_instruction_valid_schema(instruction_schema: InstructionSchema) -> None
     ],
 )
 def test_instruction_invalid_schema(
-        field: str,
-        invalid_value: str,
-        instruction_schema: InstructionSchema
+    field: str, invalid_value: str, instruction_schema: InstructionSchema
 ) -> None:
     invalid_instruction_schema = instruction_schema.model_dump()
     invalid_instruction_schema[field] = invalid_value
@@ -38,7 +36,7 @@ def test_instruction_invalid_schema(
     ('value', 'expected'),
     [
         ('Thaw chicken', 'Thaw chicken'),
-    ]
+    ],
 )
 def test_instruction_schema_default_values(value: str, expected: str) -> None:
     instruction = InstructionSchema(description=value)

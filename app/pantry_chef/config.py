@@ -17,9 +17,9 @@ class Settings(BaseSettings):
     @field_validator('DATABASE_URL')
     @classmethod
     def format_database_url(
-            cls,
-            _v: str,
-            info: ValidationInfo,
+        cls,
+        _v: str,
+        info: ValidationInfo,
     ) -> str:
         values = info.data
         return (

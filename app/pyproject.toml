@@ -20,6 +20,17 @@ asyncpg = "^0.29.0"
 ruff = "^0.6.8"
 alembic = "^1.13.3"
 pytest = "^8.3.3"
+pyright = "^1.1.387"
+pre-commit = "^4.0.1"
+
+[tool.pyright]
+ignore = ["app/models/__init__.py", "alembic"]
+defineConstant = { DEBUG = true }
+pythonVersion = "3.12.6"
+typeCheckingMode = "strict"
+reportPrivateUsage = false
+venvPath = "."
+venv = ".venv"
 
 [tool.ruff]
 exclude = ["alembic"]
