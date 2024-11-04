@@ -1,9 +1,13 @@
 from contextlib import asynccontextmanager
 from typing import AsyncIterator
 
-from fastapi import APIRouter, FastAPI
+from fastapi import (
+    APIRouter,
+    FastAPI,
+)
 
 from pantry_chef.database import session_manager
+from pantry_chef.ingredient.api import router as ingredient_router
 
 
 @asynccontextmanager
@@ -22,4 +26,5 @@ async def root() -> dict[str, str]:
     return {'Hello': 'World'}
 
 
+router.include_router(ingredient_router)
 app.include_router(router)

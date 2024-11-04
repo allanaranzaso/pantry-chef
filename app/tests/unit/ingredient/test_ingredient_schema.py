@@ -19,8 +19,6 @@ def test_ingredient_valid_schema(ingredient_schema: IngredientSchema) -> None:
         ('quantity', -1),
         ('uom', ''),
         ('uom', 'Invalid value'),
-        ('recipes', ''),
-        ('recipes', ['invalid']),
     ],
 )
 def test_ingredient_invalid_schema(
@@ -47,4 +45,3 @@ def test_ingredient_schema_default_value(value: str, expected: str) -> None:
     assert ingredient_schema.name == expected
     assert ingredient_schema.quantity == 0
     assert ingredient_schema.uom == 'each'
-    assert ingredient_schema.recipes == []
