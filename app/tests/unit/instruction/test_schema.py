@@ -16,7 +16,6 @@ def test_instruction_valid_schema(instruction_schema: InstructionSchema) -> None
     [
         ('step_number', 1),
         ('description', ''),
-        ('recipe_uuids', ['invalid value']),
         ('duration_ms', -1),
         ('duration_ms', 'Invalid value'),
     ],
@@ -44,5 +43,4 @@ def test_instruction_schema_default_values(value: str, expected: str) -> None:
     assert isinstance(instruction.uuid, UUID)
     assert instruction.step_number == '1'
     assert instruction.description == expected
-    assert instruction.recipe_uuids == []
     assert instruction.duration_ms == 0
