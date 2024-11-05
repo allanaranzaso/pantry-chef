@@ -17,7 +17,7 @@ from pantry_chef.ingredient.schema import IngredientSchema
 
 @pytest.fixture
 def ingredient_endpoint():
-    return '/api/v1/ingredients/'
+    return '/api/v1/ingredient/'
 
 
 @pytest.fixture

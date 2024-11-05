@@ -4,7 +4,7 @@ from typing import Any
 from pydantic import ValidationError
 
 
-class DBIngredientCreationFailed(Exception):
+class DBInstructionCreationFailed(Exception):
     detail: tuple[Any, ...]
 
     def __init__(self, db_err: Exception) -> None:
@@ -13,5 +13,5 @@ class DBIngredientCreationFailed(Exception):
             self.detail = json.loads(db_err.json())
 
 
-class IngredientNotFoundException(Exception):
+class InstructionNotFoundException(Exception):
     pass

@@ -1,16 +1,25 @@
 from typing import Annotated
-from uuid import UUID, uuid4
+from uuid import (
+    UUID,
+    uuid4,
+)
 
 from annotated_types import Predicate
-from pydantic import Field, field_serializer, field_validator
+from pydantic import (
+    Field,
+    field_validator,
+)
 
-from pantry_chef.base_schema import BaseSchema, BaseStatusSchema, BaseTelemetrySchema
+from pantry_chef.base_schema import (
+    BaseSchema,
+    BaseStatusSchema,
+    BaseTelemetrySchema,
+)
 from pantry_chef.validators import is_not_empty_string
 
 
 class InstructionSchema(BaseSchema, BaseStatusSchema, BaseTelemetrySchema):
     uuid: UUID = Field(default_factory=uuid4)
-    recipe_uuids: list[UUID] = []
     step_number: str = '1'
     description: Annotated[str, Predicate(is_not_empty_string)]
     duration_ms: int = 0
@@ -32,7 +41,3 @@ class InstructionSchema(BaseSchema, BaseStatusSchema, BaseTelemetrySchema):
             raise ValueError('Duration must be a number')
 
         return value
-
-    @field_serializer('recipe_uuids')
-    def serialize_recipe_uuids(self, value: list[UUID]) -> list[str]:
-        return [str(uuid) for uuid in value]

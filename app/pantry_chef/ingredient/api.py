@@ -20,7 +20,7 @@ from pantry_chef.ingredient.exceptions import (
 from pantry_chef.ingredient.schema import IngredientSchema
 
 router = APIRouter(
-    prefix='/ingredients',
+    prefix='/ingredient',
     tags=['ingredient'],
 )
 

@@ -8,6 +8,7 @@ from fastapi import (
 
 from pantry_chef.database import session_manager
 from pantry_chef.ingredient.api import router as ingredient_router
+from pantry_chef.instruction.api import router as instruction_router
 
 
 @asynccontextmanager
@@ -26,5 +27,6 @@ async def root() -> dict[str, str]:
     return {'Hello': 'World'}
 
 
+router.include_router(instruction_router)
 router.include_router(ingredient_router)
 app.include_router(router)
