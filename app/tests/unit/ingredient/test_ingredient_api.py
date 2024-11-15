@@ -25,7 +25,7 @@ def mock_get_ingredient(
     mocker: Mock,
     ingredient_schema: IngredientSchema,
 ) -> Mock:
-    mock = mocker.patch('pantry_chef.ingredient.api.db_get_ingredient_by_uuid')
+    mock = mocker.patch('pantry_chef.ingredient.api.get_ingredient_by_uuid')
     mock.return_value = ingredient_schema
 
     return mock
@@ -36,7 +36,7 @@ def mock_create_ingredient(
     ingredient_schema: IngredientSchema,
     mocker: Mock,
 ) -> Mock:
-    mock = mocker.patch('pantry_chef.ingredient.api.db_create_ingredient')
+    mock = mocker.patch('pantry_chef.ingredient.api.create_ingredient')
     mock.return_value = ingredient_schema
 
     return mock
@@ -47,7 +47,7 @@ def mock_update_ingredient(
     ingredient_schema: IngredientSchema,
     mocker: Mock,
 ) -> Mock:
-    mock = mocker.patch('pantry_chef.ingredient.api.db_update_ingredient')
+    mock = mocker.patch('pantry_chef.ingredient.api.update_ingredient')
     mock.return_value = ingredient_schema
 
     return mock
