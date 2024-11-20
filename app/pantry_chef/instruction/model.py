@@ -1,33 +1,9 @@
 from uuid import UUID, uuid4
 
-from sqlalchemy import Column, Float, ForeignKey, Index, String, Table, Text, func
-from sqlalchemy.dialects.postgresql import UUID as SA_UUID
+from sqlalchemy import Float, String, Text, func
 from sqlalchemy.orm import Mapped, mapped_column
 
 from pantry_chef.base_model import Base, BaseStatus, BaseTelemetry
-
-recipe_instruction_association = Table(
-    'recipe_instruction_association',
-    Base.metadata,
-    Column(
-        'recipe_uuid',
-        SA_UUID(as_uuid=True),
-        ForeignKey('recipe.uuid'),
-        nullable=False,
-    ),
-    Column(
-        'instruction_uuid',
-        SA_UUID(as_uuid=True),
-        ForeignKey('instruction.uuid'),
-        nullable=False,
-    ),
-    Index(
-        'index_recipe_instruction_association',
-        'recipe_uuid',
-        'instruction_uuid',
-        unique=True,
-    ),
-)
 
 
 class Instruction(Base, BaseStatus, BaseTelemetry):
