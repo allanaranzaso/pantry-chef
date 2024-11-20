@@ -22,7 +22,7 @@ from pantry_chef.ingredient.schema import IngredientSchema
 
 async def db_create_ingredient(
     db: AsyncSession, ingredient: IngredientSchema
-) -> IngredientSchema:
+) -> Ingredient:
     db_ingredient = Ingredient(
         **ingredient.model_dump(), created_at=datetime.now(tz=UTC), last_modify_by=uuid4()
     )
@@ -39,13 +39,13 @@ async def db_create_ingredient(
         await db.rollback()
         raise DBIngredientCreationFailed(exc) from exc
 
-    return ingredient
+    return db_ingredient
 
 
 async def db_get_ingredient_by_uuid(
     db: AsyncSession,
     uuid: UUID,
-) -> IngredientSchema:
+) -> Ingredient:
     query = select(Ingredient).where(Ingredient.uuid == uuid)
     query_result = await db.execute(query)
     result = query_result.scalars().first()
@@ -53,12 +53,12 @@ async def db_get_ingredient_by_uuid(
     if not result:
         raise IngredientNotFoundException
 
-    return IngredientSchema.model_validate(result)
+    return result
 
 
 async def db_update_ingredient(
     db: AsyncSession, uuid: UUID, ingredient: IngredientSchema
-) -> IngredientSchema:
+) -> Ingredient:
     db_ingredient = await db_get_ingredient_by_uuid(db, uuid)
     updated_fields = ingredient.model_dump(exclude_unset=True, exclude={'uuid'})
 
@@ -73,4 +73,4 @@ async def db_update_ingredient(
         raise DBIngredientCreationFailed(exc) from exc
 
     await db.refresh(db_ingredient)
-    return IngredientSchema.model_validate(db_ingredient)
+    return db_ingredient

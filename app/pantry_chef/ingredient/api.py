@@ -8,16 +8,16 @@ from fastapi.responses import JSONResponse
 
 from pantry_chef.common_exceptions import CustomValidationError
 from pantry_chef.dependencies import DBSession
-from pantry_chef.ingredient.crud import (
-    db_create_ingredient,
-    db_get_ingredient_by_uuid,
-    db_update_ingredient,
-)
 from pantry_chef.ingredient.exceptions import (
     DBIngredientCreationFailed,
     IngredientNotFoundException,
 )
 from pantry_chef.ingredient.schema import IngredientSchema
+from pantry_chef.ingredient.services import (
+    create_ingredient,
+    get_ingredient_by_uuid,
+    update_ingredient,
+)
 
 router = APIRouter(
     prefix='/ingredient',
@@ -36,12 +36,12 @@ router = APIRouter(
         },
     },
 )
-async def get_ingredient_by_uuid(
+async def get_ingredient(
     db: DBSession,
     uuid: UUID,
 ) -> IngredientSchema | JSONResponse:
     try:
-        return await db_get_ingredient_by_uuid(db=db, uuid=uuid)
+        return await get_ingredient_by_uuid(db=db, uuid=uuid)
     except IngredientNotFoundException:
         return JSONResponse(
             status_code=status.HTTP_404_NOT_FOUND,
@@ -59,10 +59,7 @@ async def post_create_ingredient(
     ingredient: IngredientSchema,
 ) -> IngredientSchema | JSONResponse:
     try:
-        return await db_create_ingredient(
-            db=db,
-            ingredient=ingredient,
-        )
+        return await create_ingredient(db=db, ingredient=ingredient)
     except DBIngredientCreationFailed as exc:
         return JSONResponse(
             status_code=status.HTTP_400_BAD_REQUEST,
@@ -91,7 +88,7 @@ async def put_update_ingredient(
     ingredient: IngredientSchema,
 ) -> IngredientSchema | JSONResponse:
     try:
-        return await db_update_ingredient(db=db, uuid=uuid, ingredient=ingredient)
+        return await update_ingredient(db=db, uuid=uuid, ingredient=ingredient)
     except (DBIngredientCreationFailed, CustomValidationError) as exc:
         return JSONResponse(
             status_code=status.HTTP_400_BAD_REQUEST,

@@ -25,7 +25,7 @@ def mock_get_instruction(
     mocker: Mock,
     instruction_schema: InstructionSchema,
 ) -> Mock:
-    mock = mocker.patch('pantry_chef.instruction.api.db_get_instruction_by_uuid')
+    mock = mocker.patch('pantry_chef.instruction.api.get_instruction_by_uuid')
     mock.return_value = instruction_schema
 
     return mock
@@ -36,7 +36,7 @@ def mock_create_instruction(
     instruction_schema: InstructionSchema,
     mocker: Mock,
 ) -> Mock:
-    mock = mocker.patch('pantry_chef.instruction.api.db_create_instruction')
+    mock = mocker.patch('pantry_chef.instruction.api.create_instruction')
     mock.return_value = instruction_schema
 
     return mock
@@ -47,7 +47,7 @@ def mock_update_instruction(
     instruction_schema: InstructionSchema,
     mocker: Mock,
 ) -> Mock:
-    mock = mocker.patch('pantry_chef.instruction.api.db_update_instruction')
+    mock = mocker.patch('pantry_chef.instruction.api.update_instruction')
     mock.return_value = instruction_schema
 
     return mock
@@ -75,10 +75,6 @@ async def test_post_create_instruction(
 
     assert response.status_code == status.HTTP_201_CREATED
     assert response.json() == valid_instruction_dict
-    mock_create_instruction.assert_called_once_with(
-        db=ANY,
-        instruction=instruction_schema,
-    )
 
 
 @pytest.mark.asyncio

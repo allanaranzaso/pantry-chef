@@ -12,6 +12,6 @@ class RecipeSchema(BaseSchema, BaseStatusSchema, BaseTelemetrySchema):
     uuid: UUID = Field(default_factory=uuid4)
     name: Annotated[str, Predicate(is_not_empty_string)]
     description: str = ''
-    ingredient_uuids: list[UUID] = []
-    instruction_uuids: list[UUID] = []
+    ingredients_uuids: list[UUID] = Field(default_factory=list)
+    instructions_uuids: list[UUID] = Field(default_factory=list)
     cuisine_type: str = ''

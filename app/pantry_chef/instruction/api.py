@@ -7,16 +7,16 @@ from fastapi import (
 from fastapi.responses import JSONResponse
 
 from pantry_chef.dependencies import DBSession
-from pantry_chef.instruction.crud import (
-    db_create_instruction,
-    db_get_instruction_by_uuid,
-    db_update_instruction,
-)
 from pantry_chef.instruction.exceptions import (
     DBInstructionCreationFailed,
     InstructionNotFoundException,
 )
 from pantry_chef.instruction.schema import InstructionSchema
+from pantry_chef.instruction.services import (
+    create_instruction,
+    get_instruction_by_uuid,
+    update_instruction,
+)
 
 router = APIRouter(
     prefix='/instruction',
@@ -35,12 +35,12 @@ router = APIRouter(
         },
     },
 )
-async def get_instruction_by_uuid(
+async def get_instruction(
     db: DBSession,
     uuid: UUID,
 ) -> InstructionSchema | JSONResponse:
     try:
-        return await db_get_instruction_by_uuid(db=db, uuid=uuid)
+        return await get_instruction_by_uuid(db=db, uuid=uuid)
     except InstructionNotFoundException:
         return JSONResponse(
             status_code=status.HTTP_404_NOT_FOUND,
@@ -58,7 +58,7 @@ async def post_create_instruction(
     instruction: InstructionSchema,
 ) -> InstructionSchema | JSONResponse:
     try:
-        return await db_create_instruction(db=db, instruction=instruction)
+        return await create_instruction(db=db, instruction=instruction)
     except DBInstructionCreationFailed as exc:
         return JSONResponse(
             status_code=status.HTTP_400_BAD_REQUEST,
@@ -87,7 +87,7 @@ async def put_update_instruction(
     instruction: InstructionSchema,
 ) -> InstructionSchema | JSONResponse:
     try:
-        return await db_update_instruction(db=db, uuid=uuid, instruction=instruction)
+        return await update_instruction(db=db, uuid=uuid, instruction=instruction)
     except DBInstructionCreationFailed as exc:
         return JSONResponse(
             status_code=status.HTTP_400_BAD_REQUEST,
