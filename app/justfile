@@ -1,0 +1,4 @@
+set dotenv-load := true
+
+import '.just/app-runner.just'
+import '.just/database.just'
