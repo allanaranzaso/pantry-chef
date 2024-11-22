@@ -10,7 +10,7 @@ restart-docker-app:
     {{ docker_compose }} restart backend
 
 stop-docker-app:
-    {{ docker_compose }} stop backend
+    {{ docker_compose }} down
 
 build-docker-app:
     {{ docker_compose }} build backend --no-cache
