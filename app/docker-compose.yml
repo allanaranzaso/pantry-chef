@@ -5,17 +5,20 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: poetry run uvicorn pantry_chef.main:app --host 0.0.0.0 --port 8000 --reload
+    command: poetry run uvicorn pantry_chef.main:app --host 0.0.0.0 --port 8000 --reload --reload-dir /pantry-chef-backend
     volumes:
-      - ./pantry_chef:/pantry_chef/:cached
+      - ./pantry_chef:/pantry-chef-backend/pantry_chef
     environment:
       - PYTHONPATH=.
+      - WATCH_FILES=True
     ports:
       - "8000:8000"
     env_file:
       - .env
     depends_on:
       - db
+    networks:
+      - pantry_chef_network
 
   db:
     image: postgres:17
@@ -27,9 +30,15 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data:cached
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - pantry_chef_network
 
 
 
 volumes:
   postgres_data:
+
+networks:
+  pantry_chef_network:
+    external: false
