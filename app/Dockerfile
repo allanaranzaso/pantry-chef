@@ -22,7 +22,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN pip install poetry==1.8.1
 
 # Set the working directory inside the container
-RUN mkdir /pantry-chef-backend
+RUN mkdir -p /pantry-chef-backend/pantry_chef
 WORKDIR /pantry-chef-backend
 
 FROM base AS builder
