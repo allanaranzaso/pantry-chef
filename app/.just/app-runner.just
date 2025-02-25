@@ -1,7 +1,7 @@
 docker_compose := "docker-compose"
 
 run-app:
-    poetry run uvicorn finding_capture.main:app --host 0.0.0.0 --port 8000 --reload
+    poetry run uvicorn pantry_chef.main:app --host 0.0.0.0 --port 8000 --reload
 
 run-docker-app:
     {{ docker_compose }} up -d backend --build

@@ -109,12 +109,20 @@ Before you begin, ensure you have the following installed:
     cp .env.sample .env
     ```
 
+**Running Locally**:
+1. **Run the below command to start the server**:
+
+   ```bash
+   just run-app
+   ```
+
+
 **Using Docker**:
 
 1. **Run the below command to build and start the server**:
 
    ```bash
-   just run-app
+   just run-docker-app
    ```
 
 2. **Run the initial database migration**:
