@@ -13,7 +13,8 @@ pydantic = "^2.9.2"
 databases = { extras = ["postgresql"], version = "^0.9.0" }
 sqlalchemy = "^2.0.35"
 pydantic-settings = "^2.5.2"
-httpx = "^0.23.0"
+httpx = "^0.28.1"
+h11 = "^0.16" # ensures minimum h11 version for security
 
 [tool.poetry.group.ci.dependencies]
 asyncpg = "^0.29.0"
