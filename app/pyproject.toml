@@ -11,13 +11,13 @@ fastapi = "^0.128.0"
 uvicorn = "^0.30.6"
 pydantic = "^2.9.2"
 databases = { extras = ["postgresql"], version = "^0.9.0" }
-sqlalchemy = "^2.0.35"
+sqlalchemy = { extras = ["asyncio"], version = "^2.0.35" }
 pydantic-settings = "^2.5.2"
 httpx = "^0.28.1"
 h11 = "^0.16" # ensures minimum h11 version for security
+asyncpg = "^0.29.0"
 
 [tool.poetry.group.ci.dependencies]
-asyncpg = "^0.29.0"
 ruff = "^0.6.8"
 alembic = "^1.13.3"
 pytest = "^8.3.3"
